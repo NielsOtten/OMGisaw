@@ -1,0 +1,31 @@
+{
+  "name": "omgisaw",
+  "version": "0.0.0-dev",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "next",
+    "build": "next build",
+    "serve": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nylsoo/OMGisaw.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nylsoo/OMGisaw/issues"
+  },
+  "homepage": "https://github.com/nylsoo/OMGisaw#readme",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "linaria": "^1.3.1",
+    "next": "^9.0.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}

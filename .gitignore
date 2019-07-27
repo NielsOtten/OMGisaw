@@ -1,0 +1,7 @@
+.vscode
+.idea
+phpcs.xml
+
+/node_modules
+/.next
+/.linaria-cache
