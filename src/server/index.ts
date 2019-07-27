@@ -2,6 +2,7 @@ import nextJS from 'next';
 import express from 'express';
 import compression from 'compression';
 import slashes from 'connect-slashes';
+import postgraphile from 'postgraphile';
 
 require('dotenv').config();
 
@@ -20,7 +21,7 @@ app.prepare().then(() => {
   const server = express();
 
   server
-    .use([compression(), slashes()])
+    .use([postgraphile(), compression(), slashes()])
     .get('/*', async (req: any, res: any) => {
       if (!req.path.startsWith('/_next/') && !req.path.startsWith('/static/')) {
         app.render(req, res, '/', {

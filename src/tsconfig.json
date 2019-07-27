@@ -1,51 +1,8 @@
-// This config is meant to be used together with babel.
-// It only transpiles to esnext, and babel can do the rest.
 {
-  "include": [
-    "./**/*"
-  ],
+  "extends": "../node_modules/@burst/ts-config/tsconfig.json",
+  "include": ["./**/*"],
   "compilerOptions": {
     "esModuleInterop": true,
-    // Allow importing js files. This makes it easier to quickly create some
-    // components (like styled components). The js files itself won't be
-    // type-checked.
-    "allowJs": true,
-    // Add some extra checks that make typescript stricter.
-    // Strict means:
-    // - noImplicitAny
-    // - noImplicitThis
-    // - alwaysStrict
-    // - strictBindCallApply
-    // - strictNullChecks
-    // - strictFunctionTypes
-    // - strictPropertyInitialization
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    // This assures that in the future, we can also use babel to transpile TS
-    // to JS. Babel doesn't support all features TS supports, like a multi-file
-    // emit architecture. This however also forces us to skip the lib check, as
-    // these non-supported features are possibily used in @types/ packages.
-    "isolatedModules": true,
-    "skipLibCheck": true,
-    // Generate sourcemaps, so other tools can use these sourceMaps to provide a
-    // nice debugging experience.
-    "sourceMap": true,
-    // By default, we assume that everything will be transpiled by Babel after
-    // it was transpiled by Typescript.
-    "target": "esnext",
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
-    "module": "esnext",
-    "jsx": "preserve",
-    "noEmit": true,
-    "allowSyntheticDefaultImports": true,
-    // This allows importing .json files in TS. Node also supports this.
-    "resolveJsonModule": true,
-    // Use the same resulution method as node does. The 'classic' resulution
-    // method is only in Typescript for backwards-compatibility reasons.
-    "moduleResolution": "node"
+    "typeRoots": ["../node_modules/@burst/types"]
   }
 }
