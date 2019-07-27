@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/nylsoo/OMGisaw#readme",
   "dependencies": {
+    "@types/node": "^12.6.8",
     "@zeit/next-css": "^1.0.1",
     "compression": "^1.7.4",
     "connect-slashes": "^1.4.0",
