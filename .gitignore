@@ -3,5 +3,5 @@
 phpcs.xml
 
 /node_modules
-/.next
+/src/.next
 /.linaria-cache
