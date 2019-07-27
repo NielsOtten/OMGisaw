@@ -189,6 +189,232 @@ type DeleteSubjectPayload {
   ): SubjectsEdge
 }
 
+"""All geography XY types implement this interface"""
+interface GeographyGeometry {
+  """Converts the object to GeoJSON"""
+  geojson: GeoJSON
+
+  """Spatial reference identifier (SRID)"""
+  srid: Int!
+}
+
+type GeographyGeometryCollection implements GeographyInterface & GeographyGeometry {
+  geojson: GeoJSON
+  srid: Int!
+  geometries: [GeographyGeometry]
+}
+
+type GeographyGeometryCollectionM implements GeographyInterface & GeographyGeometryM {
+  geojson: GeoJSON
+  srid: Int!
+  geometries: [GeographyGeometryM]
+}
+
+type GeographyGeometryCollectionZ implements GeographyInterface & GeographyGeometryZ {
+  geojson: GeoJSON
+  srid: Int!
+  geometries: [GeographyGeometryZ]
+}
+
+type GeographyGeometryCollectionZM implements GeographyInterface & GeographyGeometryZM {
+  geojson: GeoJSON
+  srid: Int!
+  geometries: [GeographyGeometryZM]
+}
+
+"""All geography XYM types implement this interface"""
+interface GeographyGeometryM {
+  """Converts the object to GeoJSON"""
+  geojson: GeoJSON
+
+  """Spatial reference identifier (SRID)"""
+  srid: Int!
+}
+
+"""All geography XYZ types implement this interface"""
+interface GeographyGeometryZ {
+  """Converts the object to GeoJSON"""
+  geojson: GeoJSON
+
+  """Spatial reference identifier (SRID)"""
+  srid: Int!
+}
+
+"""All geography XYZM types implement this interface"""
+interface GeographyGeometryZM {
+  """Converts the object to GeoJSON"""
+  geojson: GeoJSON
+
+  """Spatial reference identifier (SRID)"""
+  srid: Int!
+}
+
+"""All geography types implement this interface"""
+interface GeographyInterface {
+  """Converts the object to GeoJSON"""
+  geojson: GeoJSON
+
+  """Spatial reference identifier (SRID)"""
+  srid: Int!
+}
+
+type GeographyLineString implements GeographyInterface & GeographyGeometry {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPoint]
+}
+
+type GeographyLineStringM implements GeographyInterface & GeographyGeometryM {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPointM]
+}
+
+type GeographyLineStringZ implements GeographyInterface & GeographyGeometryZ {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPointZ]
+}
+
+type GeographyLineStringZM implements GeographyInterface & GeographyGeometryZM {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPointZM]
+}
+
+type GeographyMultiLineString implements GeographyInterface & GeographyGeometry {
+  geojson: GeoJSON
+  srid: Int!
+  lines: [GeographyLineString]
+}
+
+type GeographyMultiLineStringM implements GeographyInterface & GeographyGeometryM {
+  geojson: GeoJSON
+  srid: Int!
+  lines: [GeographyLineStringM]
+}
+
+type GeographyMultiLineStringZ implements GeographyInterface & GeographyGeometryZ {
+  geojson: GeoJSON
+  srid: Int!
+  lines: [GeographyLineStringZ]
+}
+
+type GeographyMultiLineStringZM implements GeographyInterface & GeographyGeometryZM {
+  geojson: GeoJSON
+  srid: Int!
+  lines: [GeographyLineStringZM]
+}
+
+type GeographyMultiPoint implements GeographyInterface & GeographyGeometry {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPoint]
+}
+
+type GeographyMultiPointM implements GeographyInterface & GeographyGeometryM {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPointM]
+}
+
+type GeographyMultiPointZ implements GeographyInterface & GeographyGeometryZ {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPointZ]
+}
+
+type GeographyMultiPointZM implements GeographyInterface & GeographyGeometryZM {
+  geojson: GeoJSON
+  srid: Int!
+  points: [GeographyPointZM]
+}
+
+type GeographyMultiPolygon implements GeographyInterface & GeographyGeometry {
+  geojson: GeoJSON
+  srid: Int!
+  polygons: [GeographyPolygon]
+}
+
+type GeographyMultiPolygonM implements GeographyInterface & GeographyGeometryM {
+  geojson: GeoJSON
+  srid: Int!
+  polygons: [GeographyPolygonM]
+}
+
+type GeographyMultiPolygonZ implements GeographyInterface & GeographyGeometryZ {
+  geojson: GeoJSON
+  srid: Int!
+  polygons: [GeographyPolygonZ]
+}
+
+type GeographyMultiPolygonZM implements GeographyInterface & GeographyGeometryZM {
+  geojson: GeoJSON
+  srid: Int!
+  polygons: [GeographyPolygonZM]
+}
+
+type GeographyPoint implements GeographyInterface & GeographyGeometry {
+  geojson: GeoJSON
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+}
+
+type GeographyPointM implements GeographyInterface & GeographyGeometryM {
+  geojson: GeoJSON
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+}
+
+type GeographyPointZ implements GeographyInterface & GeographyGeometryZ {
+  geojson: GeoJSON
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+}
+
+type GeographyPointZM implements GeographyInterface & GeographyGeometryZM {
+  geojson: GeoJSON
+  srid: Int!
+  longitude: Float!
+  latitude: Float!
+}
+
+type GeographyPolygon implements GeographyInterface & GeographyGeometry {
+  geojson: GeoJSON
+  srid: Int!
+  exterior: GeographyLineString
+  interiors: [GeographyLineString]
+}
+
+type GeographyPolygonM implements GeographyInterface & GeographyGeometryM {
+  geojson: GeoJSON
+  srid: Int!
+  exterior: GeographyLineStringM
+  interiors: [GeographyLineStringM]
+}
+
+type GeographyPolygonZ implements GeographyInterface & GeographyGeometryZ {
+  geojson: GeoJSON
+  srid: Int!
+  exterior: GeographyLineStringZ
+  interiors: [GeographyLineStringZ]
+}
+
+type GeographyPolygonZM implements GeographyInterface & GeographyGeometryZM {
+  geojson: GeoJSON
+  srid: Int!
+  exterior: GeographyLineStringZM
+  interiors: [GeographyLineStringZM]
+}
+
+"""
+The `GeoJSON` scalar type represents GeoJSON values as specified by[RFC 7946](https://tools.ietf.org/html/rfc7946).
+"""
+scalar GeoJSON
+
 """
 The root mutation type which contains root level fields which mutate data.
 """
@@ -413,7 +639,7 @@ type Sighting implements Node {
   nodeId: ID!
   id: Int!
   description: String
-  location: String!
+  location: GeographyInterface!
   timestamp: Datetime!
   url: String
   subjectId: Int!
@@ -434,7 +660,7 @@ input SightingCondition {
   description: String
 
   """Checks for equality with the object’s `location` field."""
-  location: String
+  location: GeoJSON
 
   """Checks for equality with the object’s `timestamp` field."""
   timestamp: Datetime
@@ -450,7 +676,7 @@ input SightingCondition {
 input SightingInput {
   id: Int
   description: String
-  location: String!
+  location: GeoJSON!
   timestamp: Datetime
   url: String
   subjectId: Int!
@@ -462,7 +688,7 @@ Represents an update to a `Sighting`. Fields that are set will be updated.
 input SightingPatch {
   id: Int
   description: String
-  location: String
+  location: GeoJSON
   timestamp: Datetime
   url: String
   subjectId: Int
@@ -524,7 +750,7 @@ type Subject implements Node {
   slug: String!
   picture: String
   description: String
-  location: String
+  location: GeographyInterface
   createdAt: Datetime!
 
   """Reads and enables pagination through a set of `Sighting`."""
@@ -580,7 +806,7 @@ input SubjectCondition {
   description: String
 
   """Checks for equality with the object’s `location` field."""
-  location: String
+  location: GeoJSON
 
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: Datetime
@@ -594,7 +820,7 @@ input SubjectInput {
   slug: String!
   picture: String
   description: String
-  location: String
+  location: GeoJSON
   createdAt: Datetime
 }
 
@@ -608,7 +834,7 @@ input SubjectPatch {
   slug: String
   picture: String
   description: String
-  location: String
+  location: GeoJSON
   createdAt: Datetime
 }
 

@@ -7,7 +7,7 @@
     "build:server": "rimraf build/ && tsc --project tsconfig.server.json",
     "serve": "NODE_ENV=production node build/index.js",
     "gen:all": "npm run gen:sql && npm run gen:graphql && npm run gen:typescript",
-    "gen:graphql": "export $(grep -v '^#' .env | xargs) && postgraphile -c \"$DATABASE_URL\" -s $DATABASE_NAME --export-schema-graphql ./src/graphql/schema.graphql -X",
+    "gen:graphql": "export $(grep -v '^#' .env | xargs) && postgraphile -c \"$DATABASE_URL\" -s $DATABASE_NAME --append-plugins \"@graphile/postgis\" --export-schema-graphql ./src/graphql/schema.graphql -X",
     "gen:seeds": "export $(grep -v '^#' .env | xargs) && pg_dump -aO $DATABASE_NAME > ./src/graphql/data.sql",
     "gen:sql": "export $(grep -v '^#' .env | xargs) && pg_dump -sO $DATABASE_NAME > ./src/graphql/schema.sql",
     "gen:typescript": "graphql-codegen"
