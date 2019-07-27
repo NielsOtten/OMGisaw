@@ -7,3 +7,5 @@ phpcs.xml
 /.linaria-cache
 
 .env
+
+/src/graphql/_generated_graphql_types.ts

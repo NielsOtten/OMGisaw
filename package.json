@@ -6,7 +6,8 @@
     "build:client": "rimraf src/.next && next build ./src",
     "build:server": "rimraf build/ && tsc --project tsconfig.server.json",
     "serve": "NODE_ENV=production node build/index.js",
-    "gen": "export $(grep -v '^#' .env | xargs) && postgraphile -c \"$DATABASE_URL\" -s omgisaw --export-schema-graphql ./src/graphql/schema.graphql -X"
+    "gen:graphql": "export $(grep -v '^#' .env | xargs) && postgraphile -c \"$DATABASE_URL\" -s omgisaw --export-schema-graphql ./src/graphql/schema.graphql -X",
+    "gen:typescript": "graphql-codegen"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -18,7 +19,13 @@
     "next": "^9.0.0",
     "postgraphile": "^4.4.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "@graphql-codegen/add": "^1.4.0",
+    "@graphql-codegen/cli": "^1.4.0",
+    "@graphql-codegen/fragment-matcher": "^1.4.0",
+    "@graphql-codegen/typescript": "^1.4.0",
+    "@graphql-codegen/typescript-operations": "^1.4.0",
+    "@graphql-codegen/typescript-react-apollo": "^1.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
