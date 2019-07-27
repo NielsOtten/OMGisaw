@@ -26,11 +26,27 @@ COPY omgisaw.subject (id, name, nickname, slug, picture, description, location, 
 
 
 --
+-- Data for Name: sighting; Type: TABLE DATA; Schema: omgisaw; Owner: -
+--
+
+COPY omgisaw.sighting (id, description, location, "timestamp", url, subject_id) FROM stdin;
+1	I WAS HIDING IN A BUSH WHEN BIGFOOT WALKED PAST ME! OMG I AM SO SCARED!!!!	0101000020E6100000FE11E1BABD0B4A402B830FCAA0171540	2019-07-27 19:39:55.161777+02	\N	1
+\.
+
+
+--
 -- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
 \.
+
+
+--
+-- Name: sighting_id_seq; Type: SEQUENCE SET; Schema: omgisaw; Owner: -
+--
+
+SELECT pg_catalog.setval('omgisaw.sighting_id_seq', 1, true);
 
 
 --

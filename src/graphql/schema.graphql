@@ -1,3 +1,41 @@
+"""All input for the create `Sighting` mutation."""
+input CreateSightingInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Sighting` to be created by this mutation."""
+  sighting: SightingInput!
+}
+
+"""The output of our create `Sighting` mutation."""
+type CreateSightingPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Sighting` that was created by this mutation."""
+  sighting: Sighting
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Subject` that is related to this `Sighting`."""
+  subjectBySubjectId: Subject
+
+  """An edge for our `Sighting`. May be used by Relay 1."""
+  sightingEdge(
+    """The method to use when ordering `Sighting`."""
+    orderBy: [SightingsOrderBy!] = PRIMARY_KEY_ASC
+  ): SightingsEdge
+}
+
 """All input for the create `Subject` mutation."""
 input CreateSubjectInput {
   """
@@ -41,6 +79,57 @@ A point in time as described by the [ISO
 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
 """
 scalar Datetime
+
+"""All input for the `deleteSightingById` mutation."""
+input DeleteSightingByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: Int!
+}
+
+"""All input for the `deleteSighting` mutation."""
+input DeleteSightingInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Sighting` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Sighting` mutation."""
+type DeleteSightingPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Sighting` that was deleted by this mutation."""
+  sighting: Sighting
+  deletedSightingId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Subject` that is related to this `Sighting`."""
+  subjectBySubjectId: Subject
+
+  """An edge for our `Sighting`. May be used by Relay 1."""
+  sightingEdge(
+    """The method to use when ordering `Sighting`."""
+    orderBy: [SightingsOrderBy!] = PRIMARY_KEY_ASC
+  ): SightingsEdge
+}
 
 """All input for the `deleteSubjectById` mutation."""
 input DeleteSubjectByIdInput {
@@ -104,6 +193,14 @@ type DeleteSubjectPayload {
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
+  """Creates a single `Sighting`."""
+  createSighting(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateSightingInput!
+  ): CreateSightingPayload
+
   """Creates a single `Subject`."""
   createSubject(
     """
@@ -111,6 +208,22 @@ type Mutation {
     """
     input: CreateSubjectInput!
   ): CreateSubjectPayload
+
+  """Updates a single `Sighting` using its globally unique id and a patch."""
+  updateSighting(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSightingInput!
+  ): UpdateSightingPayload
+
+  """Updates a single `Sighting` using a unique key and a patch."""
+  updateSightingById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSightingByIdInput!
+  ): UpdateSightingPayload
 
   """Updates a single `Subject` using its globally unique id and a patch."""
   updateSubject(
@@ -135,6 +248,22 @@ type Mutation {
     """
     input: UpdateSubjectBySlugInput!
   ): UpdateSubjectPayload
+
+  """Deletes a single `Sighting` using its globally unique id."""
+  deleteSighting(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSightingInput!
+  ): DeleteSightingPayload
+
+  """Deletes a single `Sighting` using a unique key."""
+  deleteSightingById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSightingByIdInput!
+  ): DeleteSightingPayload
 
   """Deletes a single `Subject` using its globally unique id."""
   deleteSubject(
@@ -203,6 +332,35 @@ type Query implements Node {
     nodeId: ID!
   ): Node
 
+  """Reads and enables pagination through a set of `Sighting`."""
+  allSightings(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Sighting`."""
+    orderBy: [SightingsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SightingCondition
+  ): SightingsConnection
+
   """Reads and enables pagination through a set of `Subject`."""
   allSubjects(
     """Only read the first `n` values of the set."""
@@ -231,14 +389,128 @@ type Query implements Node {
     """
     condition: SubjectCondition
   ): SubjectsConnection
+  sightingById(id: Int!): Sighting
   subjectById(id: Int!): Subject
   subjectBySlug(slug: String!): Subject
+
+  """Reads a single `Sighting` using its globally unique `ID`."""
+  sighting(
+    """The globally unique `ID` to be used in selecting a single `Sighting`."""
+    nodeId: ID!
+  ): Sighting
 
   """Reads a single `Subject` using its globally unique `ID`."""
   subject(
     """The globally unique `ID` to be used in selecting a single `Subject`."""
     nodeId: ID!
   ): Subject
+}
+
+type Sighting implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  description: String
+  location: String!
+  timestamp: Datetime!
+  url: String
+  subjectId: Int!
+
+  """Reads a single `Subject` that is related to this `Sighting`."""
+  subjectBySubjectId: Subject
+}
+
+"""
+A condition to be used against `Sighting` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input SightingCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `location` field."""
+  location: String
+
+  """Checks for equality with the object’s `timestamp` field."""
+  timestamp: Datetime
+
+  """Checks for equality with the object’s `url` field."""
+  url: String
+
+  """Checks for equality with the object’s `subjectId` field."""
+  subjectId: Int
+}
+
+"""An input for mutations affecting `Sighting`"""
+input SightingInput {
+  id: Int
+  description: String
+  location: String!
+  timestamp: Datetime
+  url: String
+  subjectId: Int!
+}
+
+"""
+Represents an update to a `Sighting`. Fields that are set will be updated.
+"""
+input SightingPatch {
+  id: Int
+  description: String
+  location: String
+  timestamp: Datetime
+  url: String
+  subjectId: Int
+}
+
+"""A connection to a list of `Sighting` values."""
+type SightingsConnection {
+  """A list of `Sighting` objects."""
+  nodes: [Sighting]!
+
+  """
+  A list of edges which contains the `Sighting` and cursor to aid in pagination.
+  """
+  edges: [SightingsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Sighting` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Sighting` edge in the connection."""
+type SightingsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Sighting` at the end of the edge."""
+  node: Sighting
+}
+
+"""Methods to use when ordering `Sighting`."""
+enum SightingsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  LOCATION_ASC
+  LOCATION_DESC
+  TIMESTAMP_ASC
+  TIMESTAMP_DESC
+  URL_ASC
+  URL_DESC
+  SUBJECT_ID_ASC
+  SUBJECT_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 type Subject implements Node {
@@ -254,6 +526,35 @@ type Subject implements Node {
   description: String
   location: String
   createdAt: Datetime!
+
+  """Reads and enables pagination through a set of `Sighting`."""
+  sightingsBySubjectId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Sighting`."""
+    orderBy: [SightingsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SightingCondition
+  ): SightingsConnection!
 }
 
 """
@@ -358,6 +659,66 @@ enum SubjectsOrderBy {
   CREATED_AT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+}
+
+"""All input for the `updateSightingById` mutation."""
+input UpdateSightingByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Sighting` being updated.
+  """
+  sightingPatch: SightingPatch!
+  id: Int!
+}
+
+"""All input for the `updateSighting` mutation."""
+input UpdateSightingInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Sighting` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Sighting` being updated.
+  """
+  sightingPatch: SightingPatch!
+}
+
+"""The output of our update `Sighting` mutation."""
+type UpdateSightingPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Sighting` that was updated by this mutation."""
+  sighting: Sighting
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Subject` that is related to this `Sighting`."""
+  subjectBySubjectId: Subject
+
+  """An edge for our `Sighting`. May be used by Relay 1."""
+  sightingEdge(
+    """The method to use when ordering `Sighting`."""
+    orderBy: [SightingsOrderBy!] = PRIMARY_KEY_ASC
+  ): SightingsEdge
 }
 
 """All input for the `updateSubjectById` mutation."""

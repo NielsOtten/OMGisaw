@@ -98,6 +98,40 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: sighting; Type: TABLE; Schema: omgisaw; Owner: -
+--
+
+CREATE TABLE omgisaw.sighting (
+    id integer NOT NULL,
+    description text,
+    location public.geography NOT NULL,
+    "timestamp" timestamp with time zone DEFAULT now() NOT NULL,
+    url character varying(255),
+    subject_id integer NOT NULL
+);
+
+
+--
+-- Name: sighting_id_seq; Type: SEQUENCE; Schema: omgisaw; Owner: -
+--
+
+CREATE SEQUENCE omgisaw.sighting_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sighting_id_seq; Type: SEQUENCE OWNED BY; Schema: omgisaw; Owner: -
+--
+
+ALTER SEQUENCE omgisaw.sighting_id_seq OWNED BY omgisaw.sighting.id;
+
+
+--
 -- Name: subject; Type: TABLE; Schema: omgisaw; Owner: -
 --
 
@@ -134,10 +168,25 @@ ALTER SEQUENCE omgisaw.subject_id_seq OWNED BY omgisaw.subject.id;
 
 
 --
+-- Name: sighting id; Type: DEFAULT; Schema: omgisaw; Owner: -
+--
+
+ALTER TABLE ONLY omgisaw.sighting ALTER COLUMN id SET DEFAULT nextval('omgisaw.sighting_id_seq'::regclass);
+
+
+--
 -- Name: subject id; Type: DEFAULT; Schema: omgisaw; Owner: -
 --
 
 ALTER TABLE ONLY omgisaw.subject ALTER COLUMN id SET DEFAULT nextval('omgisaw.subject_id_seq'::regclass);
+
+
+--
+-- Name: sighting sighting_pkey; Type: CONSTRAINT; Schema: omgisaw; Owner: -
+--
+
+ALTER TABLE ONLY omgisaw.sighting
+    ADD CONSTRAINT sighting_pkey PRIMARY KEY (id);
 
 
 --
@@ -154,6 +203,14 @@ ALTER TABLE ONLY omgisaw.subject
 
 ALTER TABLE ONLY omgisaw.subject
     ADD CONSTRAINT subject_slug_key UNIQUE (slug);
+
+
+--
+-- Name: sighting sighting_subject_id_fkey; Type: FK CONSTRAINT; Schema: omgisaw; Owner: -
+--
+
+ALTER TABLE ONLY omgisaw.sighting
+    ADD CONSTRAINT sighting_subject_id_fkey FOREIGN KEY (subject_id) REFERENCES omgisaw.subject(id);
 
 
 --
