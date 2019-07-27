@@ -25,10 +25,10 @@ export default function Map(props: Props) {
   return (
     <Leaflet.LeafletMap
       style={{ height: '100vh', width: '100vw' }}
-      zoom={13}
+      zoom={5}
       center={{
-        lat: 51.505,
-        lng: -0.09,
+        lat: props.subject.location!.latitude,
+        lng: props.subject.location!.longitude,
       }}
     >
       <Leaflet.TileLayer
