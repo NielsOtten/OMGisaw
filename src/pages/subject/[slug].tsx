@@ -1,11 +1,12 @@
 import React from 'react';
+import Map from './Map/Component';
 
 interface Props {
   slug: string;
 }
 
-function Subject(props: Props) {
-  return <h1>{props.slug}</h1>;
+function Subject() {
+  return <Map />;
 }
 
 Subject.getInitialProps = async function(props: any): Promise<Props> {
