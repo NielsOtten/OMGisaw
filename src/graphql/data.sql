@@ -17,20 +17,27 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Data for Name: post; Type: TABLE DATA; Schema: omgisaw; Owner: -
+-- Data for Name: subject; Type: TABLE DATA; Schema: omgisaw; Owner: -
 --
 
-COPY omgisaw.post (id, username) FROM stdin;
-1	IanWenskink
-2	Nelis
+COPY omgisaw.subject (id, name, nickname, slug, picture, description, location, created_at) FROM stdin;
+1	Bigfoot	Biggie	bigfoot	\N	Big, hairy foot	0101000020E61000006AF06371A4FA4940FF7AE0BE69051240	2019-07-27 18:11:57.308145+02
 \.
 
 
 --
--- Name: post_id_seq; Type: SEQUENCE SET; Schema: omgisaw; Owner: -
+-- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('omgisaw.post_id_seq', 2, true);
+COPY public.spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
+\.
+
+
+--
+-- Name: subject_id_seq; Type: SEQUENCE SET; Schema: omgisaw; Owner: -
+--
+
+SELECT pg_catalog.setval('omgisaw.subject_id_seq', 1, true);
 
 
 --

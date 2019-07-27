@@ -1,43 +1,49 @@
-"""All input for the create `Post` mutation."""
-input CreatePostInput {
+"""All input for the create `Subject` mutation."""
+input CreateSubjectInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
 
-  """The `Post` to be created by this mutation."""
-  post: PostInput!
+  """The `Subject` to be created by this mutation."""
+  subject: SubjectInput!
 }
 
-"""The output of our create `Post` mutation."""
-type CreatePostPayload {
+"""The output of our create `Subject` mutation."""
+type CreateSubjectPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `Post` that was created by this mutation."""
-  post: Post
+  """The `Subject` that was created by this mutation."""
+  subject: Subject
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """An edge for our `Post`. May be used by Relay 1."""
-  postEdge(
-    """The method to use when ordering `Post`."""
-    orderBy: [PostsOrderBy!] = PRIMARY_KEY_ASC
-  ): PostsEdge
+  """An edge for our `Subject`. May be used by Relay 1."""
+  subjectEdge(
+    """The method to use when ordering `Subject`."""
+    orderBy: [SubjectsOrderBy!] = PRIMARY_KEY_ASC
+  ): SubjectsEdge
 }
 
 """A location in a connection that can be used for resuming pagination."""
 scalar Cursor
 
-"""All input for the `deletePostById` mutation."""
-input DeletePostByIdInput {
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
+
+"""All input for the `deleteSubjectById` mutation."""
+input DeleteSubjectByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -46,18 +52,18 @@ input DeletePostByIdInput {
   id: Int!
 }
 
-"""All input for the `deletePostByUsername` mutation."""
-input DeletePostByUsernameInput {
+"""All input for the `deleteSubjectBySlug` mutation."""
+input DeleteSubjectBySlugInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  username: String!
+  slug: String!
 }
 
-"""All input for the `deletePost` mutation."""
-input DeletePostInput {
+"""All input for the `deleteSubject` mutation."""
+input DeleteSubjectInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -65,94 +71,94 @@ input DeletePostInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Post` to be deleted.
+  The globally unique `ID` which will identify a single `Subject` to be deleted.
   """
   nodeId: ID!
 }
 
-"""The output of our delete `Post` mutation."""
-type DeletePostPayload {
+"""The output of our delete `Subject` mutation."""
+type DeleteSubjectPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `Post` that was deleted by this mutation."""
-  post: Post
-  deletedPostId: ID
+  """The `Subject` that was deleted by this mutation."""
+  subject: Subject
+  deletedSubjectId: ID
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """An edge for our `Post`. May be used by Relay 1."""
-  postEdge(
-    """The method to use when ordering `Post`."""
-    orderBy: [PostsOrderBy!] = PRIMARY_KEY_ASC
-  ): PostsEdge
+  """An edge for our `Subject`. May be used by Relay 1."""
+  subjectEdge(
+    """The method to use when ordering `Subject`."""
+    orderBy: [SubjectsOrderBy!] = PRIMARY_KEY_ASC
+  ): SubjectsEdge
 }
 
 """
 The root mutation type which contains root level fields which mutate data.
 """
 type Mutation {
-  """Creates a single `Post`."""
-  createPost(
+  """Creates a single `Subject`."""
+  createSubject(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: CreatePostInput!
-  ): CreatePostPayload
+    input: CreateSubjectInput!
+  ): CreateSubjectPayload
 
-  """Updates a single `Post` using its globally unique id and a patch."""
-  updatePost(
+  """Updates a single `Subject` using its globally unique id and a patch."""
+  updateSubject(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdatePostInput!
-  ): UpdatePostPayload
+    input: UpdateSubjectInput!
+  ): UpdateSubjectPayload
 
-  """Updates a single `Post` using a unique key and a patch."""
-  updatePostById(
+  """Updates a single `Subject` using a unique key and a patch."""
+  updateSubjectById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdatePostByIdInput!
-  ): UpdatePostPayload
+    input: UpdateSubjectByIdInput!
+  ): UpdateSubjectPayload
 
-  """Updates a single `Post` using a unique key and a patch."""
-  updatePostByUsername(
+  """Updates a single `Subject` using a unique key and a patch."""
+  updateSubjectBySlug(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdatePostByUsernameInput!
-  ): UpdatePostPayload
+    input: UpdateSubjectBySlugInput!
+  ): UpdateSubjectPayload
 
-  """Deletes a single `Post` using its globally unique id."""
-  deletePost(
+  """Deletes a single `Subject` using its globally unique id."""
+  deleteSubject(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeletePostInput!
-  ): DeletePostPayload
+    input: DeleteSubjectInput!
+  ): DeleteSubjectPayload
 
-  """Deletes a single `Post` using a unique key."""
-  deletePostById(
+  """Deletes a single `Subject` using a unique key."""
+  deleteSubjectById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeletePostByIdInput!
-  ): DeletePostPayload
+    input: DeleteSubjectByIdInput!
+  ): DeleteSubjectPayload
 
-  """Deletes a single `Post` using a unique key."""
-  deletePostByUsername(
+  """Deletes a single `Subject` using a unique key."""
+  deleteSubjectBySlug(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeletePostByUsernameInput!
-  ): DeletePostPayload
+    input: DeleteSubjectBySlugInput!
+  ): DeleteSubjectPayload
 }
 
 """An object with a globally unique `ID`."""
@@ -178,75 +184,6 @@ type PageInfo {
   endCursor: Cursor
 }
 
-type Post implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-  id: Int!
-  username: String!
-}
-
-"""
-A condition to be used against `Post` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input PostCondition {
-  """Checks for equality with the object’s `id` field."""
-  id: Int
-
-  """Checks for equality with the object’s `username` field."""
-  username: String
-}
-
-"""An input for mutations affecting `Post`"""
-input PostInput {
-  id: Int
-  username: String!
-}
-
-"""Represents an update to a `Post`. Fields that are set will be updated."""
-input PostPatch {
-  id: Int
-  username: String
-}
-
-"""A connection to a list of `Post` values."""
-type PostsConnection {
-  """A list of `Post` objects."""
-  nodes: [Post]!
-
-  """
-  A list of edges which contains the `Post` and cursor to aid in pagination.
-  """
-  edges: [PostsEdge!]!
-
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """The count of *all* `Post` you could get from the connection."""
-  totalCount: Int!
-}
-
-"""A `Post` edge in the connection."""
-type PostsEdge {
-  """A cursor for use in pagination."""
-  cursor: Cursor
-
-  """The `Post` at the end of the edge."""
-  node: Post
-}
-
-"""Methods to use when ordering `Post`."""
-enum PostsOrderBy {
-  NATURAL
-  ID_ASC
-  ID_DESC
-  USERNAME_ASC
-  USERNAME_DESC
-  PRIMARY_KEY_ASC
-  PRIMARY_KEY_DESC
-}
-
 """The root query type which gives access points into the data universe."""
 type Query implements Node {
   """
@@ -266,8 +203,8 @@ type Query implements Node {
     nodeId: ID!
   ): Node
 
-  """Reads and enables pagination through a set of `Post`."""
-  allPosts(
+  """Reads and enables pagination through a set of `Subject`."""
+  allSubjects(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -286,26 +223,145 @@ type Query implements Node {
     """Read all values in the set after (below) this cursor."""
     after: Cursor
 
-    """The method to use when ordering `Post`."""
-    orderBy: [PostsOrderBy!] = [PRIMARY_KEY_ASC]
+    """The method to use when ordering `Subject`."""
+    orderBy: [SubjectsOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
     """
-    condition: PostCondition
-  ): PostsConnection
-  postById(id: Int!): Post
-  postByUsername(username: String!): Post
+    condition: SubjectCondition
+  ): SubjectsConnection
+  subjectById(id: Int!): Subject
+  subjectBySlug(slug: String!): Subject
 
-  """Reads a single `Post` using its globally unique `ID`."""
-  post(
-    """The globally unique `ID` to be used in selecting a single `Post`."""
+  """Reads a single `Subject` using its globally unique `ID`."""
+  subject(
+    """The globally unique `ID` to be used in selecting a single `Subject`."""
     nodeId: ID!
-  ): Post
+  ): Subject
 }
 
-"""All input for the `updatePostById` mutation."""
-input UpdatePostByIdInput {
+type Subject implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: Int!
+  name: String!
+  nickname: String!
+  slug: String!
+  picture: String
+  description: String
+  location: String
+  createdAt: Datetime!
+}
+
+"""
+A condition to be used against `Subject` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input SubjectCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: Int
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `nickname` field."""
+  nickname: String
+
+  """Checks for equality with the object’s `slug` field."""
+  slug: String
+
+  """Checks for equality with the object’s `picture` field."""
+  picture: String
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `location` field."""
+  location: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+}
+
+"""An input for mutations affecting `Subject`"""
+input SubjectInput {
+  id: Int
+  name: String!
+  nickname: String!
+  slug: String!
+  picture: String
+  description: String
+  location: String
+  createdAt: Datetime
+}
+
+"""
+Represents an update to a `Subject`. Fields that are set will be updated.
+"""
+input SubjectPatch {
+  id: Int
+  name: String
+  nickname: String
+  slug: String
+  picture: String
+  description: String
+  location: String
+  createdAt: Datetime
+}
+
+"""A connection to a list of `Subject` values."""
+type SubjectsConnection {
+  """A list of `Subject` objects."""
+  nodes: [Subject]!
+
+  """
+  A list of edges which contains the `Subject` and cursor to aid in pagination.
+  """
+  edges: [SubjectsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Subject` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Subject` edge in the connection."""
+type SubjectsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Subject` at the end of the edge."""
+  node: Subject
+}
+
+"""Methods to use when ordering `Subject`."""
+enum SubjectsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  NICKNAME_ASC
+  NICKNAME_DESC
+  SLUG_ASC
+  SLUG_DESC
+  PICTURE_ASC
+  PICTURE_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  LOCATION_ASC
+  LOCATION_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the `updateSubjectById` mutation."""
+input UpdateSubjectByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -313,14 +369,14 @@ input UpdatePostByIdInput {
   clientMutationId: String
 
   """
-  An object where the defined keys will be set on the `Post` being updated.
+  An object where the defined keys will be set on the `Subject` being updated.
   """
-  postPatch: PostPatch!
+  subjectPatch: SubjectPatch!
   id: Int!
 }
 
-"""All input for the `updatePostByUsername` mutation."""
-input UpdatePostByUsernameInput {
+"""All input for the `updateSubjectBySlug` mutation."""
+input UpdateSubjectBySlugInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -328,14 +384,14 @@ input UpdatePostByUsernameInput {
   clientMutationId: String
 
   """
-  An object where the defined keys will be set on the `Post` being updated.
+  An object where the defined keys will be set on the `Subject` being updated.
   """
-  postPatch: PostPatch!
-  username: String!
+  subjectPatch: SubjectPatch!
+  slug: String!
 }
 
-"""All input for the `updatePost` mutation."""
-input UpdatePostInput {
+"""All input for the `updateSubject` mutation."""
+input UpdateSubjectInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -343,35 +399,35 @@ input UpdatePostInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Post` to be updated.
+  The globally unique `ID` which will identify a single `Subject` to be updated.
   """
   nodeId: ID!
 
   """
-  An object where the defined keys will be set on the `Post` being updated.
+  An object where the defined keys will be set on the `Subject` being updated.
   """
-  postPatch: PostPatch!
+  subjectPatch: SubjectPatch!
 }
 
-"""The output of our update `Post` mutation."""
-type UpdatePostPayload {
+"""The output of our update `Subject` mutation."""
+type UpdateSubjectPayload {
   """
   The exact same `clientMutationId` that was provided in the mutation input,
   unchanged and unused. May be used by a client to track mutations.
   """
   clientMutationId: String
 
-  """The `Post` that was updated by this mutation."""
-  post: Post
+  """The `Subject` that was updated by this mutation."""
+  subject: Subject
 
   """
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
 
-  """An edge for our `Post`. May be used by Relay 1."""
-  postEdge(
-    """The method to use when ordering `Post`."""
-    orderBy: [PostsOrderBy!] = PRIMARY_KEY_ASC
-  ): PostsEdge
+  """An edge for our `Subject`. May be used by Relay 1."""
+  subjectEdge(
+    """The method to use when ordering `Subject`."""
+    orderBy: [SubjectsOrderBy!] = PRIMARY_KEY_ASC
+  ): SubjectsEdge
 }

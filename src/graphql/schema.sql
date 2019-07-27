@@ -38,6 +38,20 @@ CREATE SCHEMA postgraphile_watch;
 
 
 --
+-- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial types and functions';
+
+
+--
 -- Name: notify_watchers_ddl(); Type: FUNCTION; Schema: postgraphile_watch; Owner: -
 --
 
@@ -84,20 +98,26 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: post; Type: TABLE; Schema: omgisaw; Owner: -
+-- Name: subject; Type: TABLE; Schema: omgisaw; Owner: -
 --
 
-CREATE TABLE omgisaw.post (
+CREATE TABLE omgisaw.subject (
     id integer NOT NULL,
-    username text NOT NULL
+    name character varying(255) NOT NULL,
+    nickname character varying(100) NOT NULL,
+    slug character varying(150) NOT NULL,
+    picture character varying(255),
+    description text,
+    location public.geography,
+    created_at timestamp with time zone DEFAULT now() NOT NULL
 );
 
 
 --
--- Name: post_id_seq; Type: SEQUENCE; Schema: omgisaw; Owner: -
+-- Name: subject_id_seq; Type: SEQUENCE; Schema: omgisaw; Owner: -
 --
 
-CREATE SEQUENCE omgisaw.post_id_seq
+CREATE SEQUENCE omgisaw.subject_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -107,33 +127,33 @@ CREATE SEQUENCE omgisaw.post_id_seq
 
 
 --
--- Name: post_id_seq; Type: SEQUENCE OWNED BY; Schema: omgisaw; Owner: -
+-- Name: subject_id_seq; Type: SEQUENCE OWNED BY; Schema: omgisaw; Owner: -
 --
 
-ALTER SEQUENCE omgisaw.post_id_seq OWNED BY omgisaw.post.id;
-
-
---
--- Name: post id; Type: DEFAULT; Schema: omgisaw; Owner: -
---
-
-ALTER TABLE ONLY omgisaw.post ALTER COLUMN id SET DEFAULT nextval('omgisaw.post_id_seq'::regclass);
+ALTER SEQUENCE omgisaw.subject_id_seq OWNED BY omgisaw.subject.id;
 
 
 --
--- Name: post post_pkey; Type: CONSTRAINT; Schema: omgisaw; Owner: -
+-- Name: subject id; Type: DEFAULT; Schema: omgisaw; Owner: -
 --
 
-ALTER TABLE ONLY omgisaw.post
-    ADD CONSTRAINT post_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY omgisaw.subject ALTER COLUMN id SET DEFAULT nextval('omgisaw.subject_id_seq'::regclass);
 
 
 --
--- Name: post post_username_key; Type: CONSTRAINT; Schema: omgisaw; Owner: -
+-- Name: subject subject_pkey; Type: CONSTRAINT; Schema: omgisaw; Owner: -
 --
 
-ALTER TABLE ONLY omgisaw.post
-    ADD CONSTRAINT post_username_key UNIQUE (username);
+ALTER TABLE ONLY omgisaw.subject
+    ADD CONSTRAINT subject_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: subject subject_slug_key; Type: CONSTRAINT; Schema: omgisaw; Owner: -
+--
+
+ALTER TABLE ONLY omgisaw.subject
+    ADD CONSTRAINT subject_slug_key UNIQUE (slug);
 
 
 --

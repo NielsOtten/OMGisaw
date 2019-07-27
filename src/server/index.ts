@@ -3,6 +3,7 @@ import express from 'express';
 import compression from 'compression';
 import slashes from 'connect-slashes';
 import postgraphile from 'postgraphile';
+import PostGis from '@graphile/postgis';
 
 require('dotenv').config();
 
@@ -25,6 +26,7 @@ app.prepare().then(() => {
       compression(),
       slashes(false),
       postgraphile(process.env.DATABASE_URL, 'omgisaw', {
+        appendPlugins: [PostGis],
         watchPg: true,
         graphiql: true,
         enhanceGraphiql: true,
