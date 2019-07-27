@@ -5,7 +5,8 @@
     "build": "NODE_ENV=production npm run build:server && npm run build:client",
     "build:client": "rimraf src/.next && next build ./src",
     "build:server": "rimraf build/ && tsc --project tsconfig.server.json",
-    "serve": "NODE_ENV=production node build/index.js"
+    "serve": "NODE_ENV=production node build/index.js",
+    "gen": "export $(grep -v '^#' .env | xargs) && postgraphile -c \"$DATABASE_URL\" -s omgisaw --export-schema-graphql ./src/graphql/schema.graphql -X"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
