@@ -21,7 +21,7 @@ app.prepare().then(() => {
   const server = express();
 
   server
-    .use([postgraphile(), compression(), slashes()])
+    .use([compression(), slashes()])
     .get('/*', async (req: any, res: any) => {
       if (!req.path.startsWith('/_next/') && !req.path.startsWith('/static/')) {
         app.render(req, res, '/', {

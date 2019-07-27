@@ -5,7 +5,7 @@
     "build": "NODE_ENV=production npm run build:server && npm run build:client",
     "build:client": "rimraf src/.next && next build ./src",
     "build:server": "rimraf build/ && tsc --project tsconfig.server.json",
-    "serve": "NODE_ENV=production node build/server/index.js"
+    "serve": "NODE_ENV=production node build/index.js"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -31,7 +31,7 @@
     "@types/react-dom": "^16.8.4",
     "nodemon": "^1.19.1",
     "rimraf": "^2.6.3",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "nodemonConfig": {
     "exec": "babel-node --extensions \".ts\"",
