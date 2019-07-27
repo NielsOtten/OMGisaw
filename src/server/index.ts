@@ -4,6 +4,11 @@ import compression from 'compression';
 import slashes from 'connect-slashes';
 import postgraphile from 'postgraphile';
 import PostGis from '@graphile/postgis';
+import introspectionResult, {
+  SubjectSlugQuery,
+  SubjectSlugDocument,
+} from '../graphql/_generated_graphql_types';
+import createApollo from '../lib/create-apollo-client';
 
 require('dotenv').config();
 
@@ -36,8 +41,27 @@ app.prepare().then(() => {
       if (!req.path.startsWith('/_next/') && !req.path.startsWith('/static/')) {
         const slug = req.url.replace('/', '');
 
-        // TODO: check whether the slug exists in the database
-        if (slug === 'in subject database' || true) {
+        const client = createApollo(
+          {},
+          {
+            baseUrl: `http://${req.get('host')}`,
+            introspectionResult: introspectionResult as any,
+          },
+        );
+
+        const requestBody = {
+          query: SubjectSlugDocument,
+          variables: {
+            slug,
+          },
+        };
+
+        const queryResult = await client.query<SubjectSlugQuery>(requestBody);
+
+        if (
+          queryResult.data.subject &&
+          slug === queryResult.data.subject.slug
+        ) {
           app.render(req, res, `/subject/${slug}`, {
             isProd,
           } as any);

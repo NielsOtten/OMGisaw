@@ -1,0 +1,42 @@
+query SubjectSlug($slug: String!) {
+  subject: subjectBySlug(slug: $slug) {
+    slug
+  }
+}
+
+query Subject($slug: String!) {
+  subject: subjectBySlug(slug: $slug) {
+    ...Subject
+  }
+}
+
+fragment Subject on Subject {
+  id
+  name
+  description
+  createdAt
+  nickname
+  picture
+  slug
+  location {
+    ... on GeographyPoint {
+      latitude
+      longitude
+    }
+  }
+  sightingsBySubjectId {
+    nodes {
+      description
+      location {
+        ... on GeographyPoint {
+          longitude
+          latitude
+        }
+      }
+      id
+      url
+      timestamp
+    }
+    totalCount
+  }
+}

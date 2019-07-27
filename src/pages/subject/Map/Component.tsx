@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { SubjectFragment } from '../../../graphql/_generated_graphql_types';
 
-export default function Map() {
+interface Props {
+  subject: SubjectFragment;
+}
+
+export default function Map(props: Props) {
   const [Leaflet, setLeaflet] = useState();
 
   useEffect(() => {
