@@ -21,16 +21,14 @@ app.prepare().then(() => {
   const server = express();
 
   server
-    .use([compression(), slashes(false), 
-      postgraphile(
-        process.env.DATABASE_URL,
-        "omgisaw",
-        {
-          watchPg: true,
-          graphiql: true,
-          enhanceGraphiql: true,
-        }
-      )
+    .use([
+      compression(),
+      slashes(false),
+      postgraphile(process.env.DATABASE_URL, 'omgisaw', {
+        watchPg: true,
+        graphiql: true,
+        enhanceGraphiql: true,
+      }),
     ])
     .get('/*', async (req: any, res: any) => {
       if (!req.path.startsWith('/_next/') && !req.path.startsWith('/static/')) {
