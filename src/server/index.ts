@@ -34,9 +34,19 @@ app.prepare().then(() => {
     ])
     .get('/*', async (req: any, res: any) => {
       if (!req.path.startsWith('/_next/') && !req.path.startsWith('/static/')) {
-        app.render(req, res, '/', {
-          isProd,
-        } as any);
+        const slug = req.url.replace('/', '');
+
+        // TODO: check whether the slug exists in the database
+        if (slug === 'in subject database' || true) {
+          app.render(req, res, `/subject/${slug}`, {
+            isProd,
+          } as any);
+        } else {
+          // TODO: check if normal route (home, about, t&c, etc.), or an actual 404.
+          app.render(req, res, '/', {
+            isProd,
+          } as any);
+        }
       } else {
         handle(req, res);
       }
