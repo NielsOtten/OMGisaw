@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 const isProd = process.env.NODE_ENV === 'production';
 
 const app = nextJS({
-  dev: isProd,
+  dev: !isProd,
   dir: './src',
 });
 
