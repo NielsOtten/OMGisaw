@@ -35,6 +35,7 @@ app.prepare().then(() => {
         watchPg: true,
         graphiql: true,
         enhanceGraphiql: true,
+        disableQueryLog: isProd,
       }),
     ])
     .get('/*', async (req: any, res: any) => {
