@@ -91,8 +91,8 @@ export default function Map(props: Props) {
       style={{ height: '100vh', width: '100vw' }}
       zoom={5}
       center={{
-        lat: props.subject.location!.latitude,
-        lng: props.subject.location!.longitude,
+        lat: 50,
+        lng: 4,
       }}
       onClick={(e: LeafletMouseEvent) => setNewSighting(e.latlng)}
     >
