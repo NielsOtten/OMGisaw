@@ -64,3 +64,31 @@ mutation CreateSubject(
     }
   }
 }
+
+mutation CreateSighting(
+  $description: String!
+  $location: GeoJSON!
+  $subjectId: Int!
+  $timestamp: Datetime!
+) {
+  createSighting(
+    input: {
+      sighting: {
+        description: $description
+        location: $location
+        subjectId: $subjectId
+        timestamp: $timestamp
+      }
+    }
+  ) {
+    sighting {
+      location {
+        ... on GeographyPoint {
+          latitude
+          longitude
+        }
+      }
+      id
+    }
+  }
+}
