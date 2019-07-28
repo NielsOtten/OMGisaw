@@ -40,3 +40,27 @@ fragment Subject on Subject {
     totalCount
   }
 }
+
+mutation CreateSubject(
+  $name: String!
+  $nickname: String!
+  $slug: String!
+  $picture: String
+  $description: String
+) {
+  createSubject(
+    input: {
+      subject: {
+        name: $name
+        nickname: $nickname
+        slug: $slug
+        picture: $picture
+        description: $description
+      }
+    }
+  ) {
+    subject {
+      slug
+    }
+  }
+}
