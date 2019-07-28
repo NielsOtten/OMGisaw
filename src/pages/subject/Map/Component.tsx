@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { LeafletMouseEvent, LatLng } from 'leaflet';
+import { LeafletMouseEvent, LatLng, Icon, marker } from 'leaflet';
 import { Popup as leafletPopup } from 'react-leaflet';
 import {
   SubjectFragment,
@@ -16,6 +16,7 @@ export default function Map(props: Props) {
   const [newSighting, setNewSighting] = useState<LatLng>();
   const [markerRef, setMarkerRef] = useState<leafletPopup>();
   const [sightingMutation] = useCreateSightingMutation();
+  const [markerIcon, setMarkerIcon] = useState<Icon>();
 
   useEffect(() => {
     async function loadLeaflet() {
@@ -25,6 +26,17 @@ export default function Map(props: Props) {
         Popup,
         Marker,
       } = await import('react-leaflet');
+      const L = await import('leaflet');
+
+      setMarkerIcon(
+        L.icon({
+          iconUrl:
+            'https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon-2x.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+        }),
+      );
+
       setLeaflet({ TileLayer, LeafletMap, Marker, Popup });
     }
 
@@ -92,7 +104,7 @@ export default function Map(props: Props) {
               sighting!.location.latitude,
               sighting!.location.longitude,
             ]}
-            iconUrl="https://unpkg.com/leaflet@1.5.1/dist/images/marker-icon-2x.png"
+            icon={markerIcon}
           />
         );
       })}
