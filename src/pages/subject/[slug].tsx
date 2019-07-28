@@ -46,6 +46,7 @@ async function getInitialProps(props: any): Promise<Props> {
       Router.push('/', '/');
     }
   }
+  console.log('queryResult', queryResult);
 
   return {
     subject: queryResult.data.subject!,
