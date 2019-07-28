@@ -67,8 +67,8 @@ app.prepare().then(() => {
             isProd,
           } as any);
         } else {
-          // TODO: check if normal route (home, about, t&c, etc.), or an actual 404.
-          app.render(req, res, '/', {
+          const route = req.url.split('/')[1];
+          app.render(req, res, route, {
             isProd,
           } as any);
         }
