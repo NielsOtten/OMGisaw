@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { LeafletMouseEvent, LatLng, Icon, marker } from 'leaflet';
+import { LeafletMouseEvent, LatLng, Icon } from 'leaflet';
 import { Popup as leafletPopup } from 'react-leaflet';
 import {
   SubjectFragment,
