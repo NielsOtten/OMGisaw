@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { LeafletMouseEvent, LatLng, Icon } from 'leaflet';
-import { Popup as leafletPopup } from 'react-leaflet';
+import { Popup as LeafletPopup } from 'react-leaflet';
 import {
   SubjectFragment,
   useCreateSightingMutation,
@@ -14,7 +14,7 @@ interface Props {
 export default function Map(props: Props) {
   const [Leaflet, setLeaflet] = useState();
   const [newSighting, setNewSighting] = useState<LatLng>();
-  const [markerRef, setMarkerRef] = useState<leafletPopup>();
+  const [popupRef, setPopupRef] = useState<LeafletPopup>();
   const [sightingMutation] = useCreateSightingMutation();
   const [markerIcon, setMarkerIcon] = useState<Icon>();
 
@@ -51,7 +51,14 @@ export default function Map(props: Props) {
   if (newSighting) {
     newSightingMarker = (
       <Leaflet.Marker position={newSighting}>
-        <Leaflet.Popup ref={(ref: any) => setMarkerRef(ref)}>
+        <Leaflet.Popup
+          ref={(ref: any) => setPopupRef(ref)}
+          onClose={() => {
+            console.log('closing');
+            setNewSighting(undefined);
+            setPopupRef(undefined);
+          }}
+        >
           OMG! did you see {props.subject.nickname}?
           <button
             type="button"
@@ -77,10 +84,10 @@ export default function Map(props: Props) {
       </Leaflet.Marker>
     );
 
-    if (typeof markerRef !== 'undefined') {
-      markerRef.props.leaflet!.map!.openPopup(
+    if (typeof popupRef !== 'undefined') {
+      popupRef.props.leaflet!.map!.openPopup(
         // @ts-ignore
-        markerRef.leafletElement,
+        popupRef.leafletElement,
         newSighting,
       );
     }
