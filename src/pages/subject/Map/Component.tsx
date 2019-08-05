@@ -54,7 +54,6 @@ export default function Map(props: Props) {
         <Leaflet.Popup
           ref={(ref: any) => setPopupRef(ref)}
           onClose={() => {
-            console.log('closing');
             setNewSighting(undefined);
             setPopupRef(undefined);
           }}
@@ -79,7 +78,15 @@ export default function Map(props: Props) {
             YES!
           </button>
           <button type="button">Maybe?</button>
-          <button type="button">No...</button>
+          <button
+            type="button"
+            onClick={() => {
+              setNewSighting(undefined);
+              setPopupRef(undefined);
+            }}
+          >
+            No...
+          </button>
         </Leaflet.Popup>
       </Leaflet.Marker>
     );
