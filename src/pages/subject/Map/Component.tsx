@@ -54,8 +54,8 @@ export default function Map(props: Props) {
         <Leaflet.Popup
           ref={(ref: any) => setPopupRef(ref)}
           onClose={() => {
-            setNewSighting(undefined);
             setPopupRef(undefined);
+            setNewSighting(undefined);
           }}
         >
           OMG! did you see {props.subject.nickname}?
@@ -81,8 +81,8 @@ export default function Map(props: Props) {
           <button
             type="button"
             onClick={() => {
-              setNewSighting(undefined);
               setPopupRef(undefined);
+              setNewSighting(undefined);
             }}
           >
             No...
@@ -91,7 +91,7 @@ export default function Map(props: Props) {
       </Leaflet.Marker>
     );
 
-    if (typeof popupRef !== 'undefined') {
+    if (typeof popupRef !== 'undefined' && popupRef !== null) {
       popupRef.props.leaflet!.map!.openPopup(
         // @ts-ignore
         popupRef.leafletElement,
