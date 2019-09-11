@@ -6,6 +6,7 @@ import {
   SubjectFragment,
   useCreateSightingMutation,
 } from '../../../graphql/_generated_graphql_types';
+import UI from './UI/Component';
 
 interface Props {
   subject: SubjectFragment;
@@ -108,8 +109,18 @@ export default function Map(props: Props) {
         lat: 50,
         lng: 4,
       }}
-      onClick={(e: LeafletMouseEvent) => setNewSighting(e.latlng)}
+      className="test"
+      onClick={(e: LeafletMouseEvent) => {
+        if (
+          e.originalEvent.toElement &&
+          e.originalEvent.toElement.classList &&
+          e.originalEvent.toElement.classList.contains('UISection')
+        ) {
+          setNewSighting(e.latlng);
+        }
+      }}
     >
+      <UI subject={props.subject} />
       {props.subject.sightingsBySubjectId.nodes.map(sighting => {
         return (
           <Leaflet.Marker

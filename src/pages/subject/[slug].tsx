@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Router from 'next/router';
 import Map from './Map/Component';
 import createApollo from '../../lib/create-apollo-client';
@@ -13,7 +13,11 @@ interface Props {
 }
 
 function Subject(props: Props) {
-  return <Map subject={props.subject} />;
+  return (
+    <Fragment>
+      <Map subject={props.subject} />
+    </Fragment>
+  );
 }
 
 async function getInitialProps(props: any): Promise<Props> {
