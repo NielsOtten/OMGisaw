@@ -5,9 +5,12 @@ import { SubjectFragment } from '../../../../graphql/_generated_graphql_types';
 
 const UIWrapper = css`
   z-index: 9999;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
+  pointer-events: none;
 `;
 
 interface Props {

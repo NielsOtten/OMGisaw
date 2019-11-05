@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import Head from 'next/head';
 import { LeafletMouseEvent, LatLng, Icon } from 'leaflet';
 import { Popup as LeafletPopup } from 'react-leaflet';
@@ -102,48 +102,50 @@ export default function Map(props: Props) {
   }
 
   return (
-    <Leaflet.LeafletMap
-      style={{ height: '100vh', width: '100vw' }}
-      zoom={5}
-      center={{
-        lat: 50,
-        lng: 4,
-      }}
-      className="test"
-      onClick={(e: LeafletMouseEvent) => {
-        if (
-          e.originalEvent.toElement &&
-          e.originalEvent.toElement.classList &&
-          e.originalEvent.toElement.classList.contains('UISection')
-        ) {
+    <Fragment>
+      <Leaflet.LeafletMap
+        style={{ height: '100vh', width: '100vw' }}
+        zoom={5}
+        center={{
+          lat: 50,
+          lng: 4,
+        }}
+        className="test"
+        onClick={(e: LeafletMouseEvent) => {
+          // if (
+          //   e.originalEvent.toElement &&
+          //   e.originalEvent.toElement.classList &&
+          //   e.originalEvent.toElement.classList.contains('UISection')
+          // ) {
           setNewSighting(e.latlng);
-        }
-      }}
-    >
-      <UI subject={props.subject} />
-      {props.subject.sightingsBySubjectId.nodes.map(sighting => {
-        return (
-          <Leaflet.Marker
-            key={sighting!.id}
-            position={[
-              sighting!.location.latitude,
-              sighting!.location.longitude,
-            ]}
-            icon={markerIcon}
-          />
-        );
-      })}
-      <Leaflet.TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
-      />
-      {newSightingMarker}
-      <Head>
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          // }
+        }}
+      >
+        {props.subject.sightingsBySubjectId.nodes.map(sighting => {
+          return (
+            <Leaflet.Marker
+              key={sighting!.id}
+              position={[
+                sighting!.location.latitude,
+                sighting!.location.longitude,
+              ]}
+              icon={markerIcon}
+            />
+          );
+        })}
+        <Leaflet.TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
         />
-      </Head>
-    </Leaflet.LeafletMap>
+        {newSightingMarker}
+        <Head>
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+          />
+        </Head>
+      </Leaflet.LeafletMap>
+      <UI subject={props.subject} />
+    </Fragment>
   );
 }

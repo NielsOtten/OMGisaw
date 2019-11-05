@@ -6,6 +6,7 @@ interface Props {
 }
 
 const defaultButton = css`
+  pointer-events: auto;
   position: absolute;
   bottom: 20px;
   left: 50%;
