@@ -111,15 +111,7 @@ export default function Map(props: Props) {
           lng: 4,
         }}
         className="test"
-        onClick={(e: LeafletMouseEvent) => {
-          // if (
-          //   e.originalEvent.toElement &&
-          //   e.originalEvent.toElement.classList &&
-          //   e.originalEvent.toElement.classList.contains('UISection')
-          // ) {
-          setNewSighting(e.latlng);
-          // }
-        }}
+        onClick={(e: LeafletMouseEvent) => setNewSighting(e.latlng)}
       >
         {props.subject.sightingsBySubjectId.nodes.map(sighting => {
           return (
