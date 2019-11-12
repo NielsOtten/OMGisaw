@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import Router from 'next/router';
 import Map from './Map/Component';
-import createApollo from '../../lib/create-apollo-client';
-import introspectionResult, {
+import {
   SubjectDocument,
   SubjectQuery,
   SubjectFragment,
 } from '../../graphql/_generated_graphql_types';
+import { NewNextPageContext } from '../_app';
 
 interface Props {
   subject: SubjectFragment;
@@ -20,15 +20,7 @@ function Subject(props: Props) {
   );
 }
 
-async function getInitialProps(props: any): Promise<Props> {
-  const client = createApollo(
-    {},
-    {
-      baseUrl: props.req ? `http://${(props.req as any).get('host')!}` : '',
-      introspectionResult: introspectionResult as any,
-    },
-  );
-
+async function getInitialProps(props: NewNextPageContext): Promise<Props> {
   const requestBody = {
     query: SubjectDocument,
     variables: {
@@ -36,7 +28,7 @@ async function getInitialProps(props: any): Promise<Props> {
     },
   };
 
-  const queryResult = await client.query<SubjectQuery>(requestBody);
+  const queryResult = await props.apolloClient.query<SubjectQuery>(requestBody);
 
   if (!queryResult.data.subject) {
     // Handle 404.
